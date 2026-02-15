@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 💌</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+    transition:background 1s ease;
+}
+
+/* ===== WRAPPER ===== */
+.wrapper{
+    perspective:1200px;
+}
+
+/* ===== ENVELOPE ===== */
+.envelope{
+    position:relative;
+    width:340px;
+    height:220px;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.envelope:hover{
+    transform:scale(1.03);
+}
+
+/* FLAP */
+.flap{
+    position:absolute;
+    width:100%;
+    height:110px;
+    background:#ff4e88;
+    top:0;
+    left:0;
+    border-top-left-radius:12px;
+    border-top-right-radius:12px;
+    transform-origin:top;
+    transition:1s ease;
+    z-index:3;
+}
+
+/* ===== LETTER FULL SCREEN MODE ===== */
+.letter{
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,100%);
+    width:90%;
+    max-width:700px;
+    max-height:85vh;
+
+    background:linear-gradient(180deg,#ffffff,#fff5f8);
+    border-radius:20px;
+    padding:40px 35px;
+
+    box-shadow:0 30px 60px rgba(0,0,0,0.2);
+
+    text-align:left;
+    line-height:1.8;
+    font-size:18px;
+    color:#444;
+
+    opacity:0;
+    overflow-y:auto;
+    transition:1.2s ease;
+}
+
+.letter h1{
+    text-align:center;
+    color:#ff4e88;
+    margin-bottom:25px;
+    font-size:28px;
+}
+
+.signature{
+    margin-top:30px;
+    text-align:right;
+    font-style:italic;
+    color:#ff4e88;
+}
+
+/* OPEN STATE */
+.open .flap{
+    transform:rotateX(-180deg);
+}
+
+.show-letter{
+    transform:translate(-50%,-50%);
+    opacity:1;
+}
+
+.fade-envelope{
+    opacity:0;
+    pointer-events:none;
+}
+
+/* HEARTS */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh);opacity:1;}
+    100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* MOBILE */
+@media(max-width:480px){
+    .letter{
+        padding:25px;
+        font-size:15px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="envelope" id="env" onclick="openLetter()">
+        <div class="flap"></div>
+    </div>
+</div>
+
+<div class="letter" id="letter">
+    <h1>🎂 Happy Birthday  🎂</h1>
+
+    <p>
+        Hôm nay là ngày đặc biệt nhất,
+        vì đó là ngày mà thiên thần xuất hiện trên thế giới này. Trước tiên anh muốn cảm ơn mẹ em, em  vì đã đến để làm cho cuộc sống anh trở nên sắc màu và ý nghĩa hơn, tươi đẹp hơn. Chúc em một ngày sinh nhất thật hạnh phúc và ngày càng xinh và may mắn hơn nhé- "i hope everthing will be better than yesterday" 
+    </p>
+
+    <p>
+        Bước sang tuổi mới, sẽ mở ra cho em một hành trình mới, có khó khăn, thử thách chông gai nhưng anh tin em đủ mạnh mẽ và can đảm để vượt qua. Em luôn nhớ đằng sau vẫn luôn có anh là bến đỗ để em yên tâm mà có thể dựa mỗi khi em cần nhé. Anh sẽ luôn ở đây, bên cạnh em, ủng hộ và yêu thương em mỗi ngày. Mong rằng tuổi mới sẽ mang đến cho em nhiều niềm vui, sức khỏe dồi dào và những trải nghiệm tuyệt vời. Chúc mừng sinh nhật em yêu! 💖
+    </p>
+
+    <p>
+        Chúc mừng em bước sang 1 tuổi mới thật vui vẻ và tràn đầy niềm vui và những thử thách mà anh tin em sẽ vượt qua dễ dàng. Anh luôn ở đây, bên cạnh em, ủng hộ và yêu thương em mỗi ngày. mong lá thư nhỏ này sẽ mong những ngày tháng sau này, em luôn nở nụ cười trên môi và ngập tràn hạnh phúc
+ 💖
+    </p>
+
+    <div class="signature">
+        — Người yêu em rất nhiều 💌
+    </div>
+</div>
+
+<script>
+function openLetter(){
+    const env=document.getElementById("env");
+    const letter=document.getElementById("letter");
+
+    env.classList.add("open");
+
+    setTimeout(()=>{
+        env.classList.add("fade-envelope");
+        letter.classList.add("show-letter");
+        document.body.style.background=
+        "linear-gradient(135deg,#ffd1dc,#ffe6f0)";
+        createHearts();
+    },800);
+}
+
+function createHearts(){
+    setInterval(()=>{
+        const heart=document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="💗";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.animationDuration=(Math.random()*3+3)+"s";
+        document.body.appendChild(heart);
+        setTimeout(()=>{heart.remove()},6000);
+    },500);
+}
+</script>
+
+</body>
+</html>
